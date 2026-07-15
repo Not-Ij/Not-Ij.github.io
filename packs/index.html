@@ -72,6 +72,78 @@
     .slide.active {
       opacity: 1;
     }
+   /* Cards Below */
+    /* Special Cards Container */
+.special-cards {
+  margin-top: 40px;
+  width: 90%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+/* Base card style */
+.special-card {
+  width: 260px;
+  padding: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform .2s ease;
+}
+
+.special-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Hover message */
+.special-card-message {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity .25s ease, transform .25s ease;
+  transform: translateY(10px);
+}
+
+.special-card:hover .special-card-message {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Pink Card */
+.pink-card {
+  border: 3px solid #ff4fae;
+}
+
+.pink-card .special-card-message {
+  color: #ff4fae;
+}
+
+/* Unknown Card */
+.unknown-card {
+  border: 3px solid #4f6bff;
+}
+
+.unknown-card .special-card-message {
+  color: #4f6bff;
+}
+
+/* Card Images */
+.special-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}   
   </style>
 </head>
 <body>
@@ -91,6 +163,23 @@
     <div class="slide" style="background-image:url('https://iili.io/CGY6729.png');"></div>
   </div>
 
+   <div class="special-cards">
+
+  <!-- Pink Blossom Card -->
+  <div class="special-card pink-card">
+    <div class="special-card-message">Bloxd Blossom Is Not Ready Yet!</div>
+    <img src="https://iili.io/CM88s3X.png" alt="Bloxd Blossom">
+  </div>
+
+  <!-- Unknown Card -->
+  <div class="special-card unknown-card">
+    <div class="special-card-message">?...</div>
+    <img src="https://iili.io/CM8Sfuj.png" alt="Unknown Pack">
+  </div>
+
+</div>
+
+  
   <script>
     const intervalMs = 30000; // 30 seconds
 
