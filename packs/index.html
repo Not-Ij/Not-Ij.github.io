@@ -11,51 +11,48 @@
       background: #000;
       color: #fff;
       height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     /* Bigger, stronger glass header */
-.header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 110px; /* increased height */
-  padding-left: 45px;
-  display: flex;
-  align-items: center;
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 110px;
+      padding-left: 45px;
+      display: flex;
+      align-items: center;
 
-  /* Stronger glassmorphism */
-  background: rgba(255, 255, 255, 0.30);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.30);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 
-  box-shadow: 0 8px 25px rgba(0,0,0,0.35); /* makes it stand out */
-  z-index: 20;
-}
+      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+      z-index: 20;
+    }
 
-.header-title {
-  font-size: 2.8rem; /* bigger text */
-  font-weight: 900;
-  letter-spacing: 1px;
-
-  text-shadow:
-    0 0 18px rgba(0,0,0,0.9),
-    0 4px 14px rgba(0,0,0,0.7),
-    0 0 25px rgba(0,150,255,0.4); /* subtle blue glow */
-}
-
-
-    
+    .header-title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-shadow:
+        0 0 18px rgba(0,0,0,0.9),
+        0 4px 14px rgba(0,0,0,0.7),
+        0 0 25px rgba(0,150,255,0.4);
+    }
 
     /* Fullscreen slideshow */
     .slideshow {
-      position: absolute;
+      position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
       overflow: hidden;
+      z-index: -1;
     }
 
     .slide {
@@ -65,85 +62,99 @@
       background-position: center;
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
-      filter: blur(1px); /* your 1px blur */
+      filter: blur(1px);
       transform: scale(1.02);
     }
 
     .slide.active {
       opacity: 1;
     }
-   /* Cards Below */
+
     /* Special Cards Container */
-.special-cards {
-  margin-top: 40px;
-  width: 90%;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+    .special-cards {
+      margin-top: 180px; /* moved lower */
+      width: 90%;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
 
-  display: flex;
-  gap: 40px;
-  justify-content: center;
-}
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+    }
 
-/* Base card style */
-.special-card {
-  width: 260px;
-  padding: 0;
-  border-radius: 14px;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  transition: transform .2s ease;
-}
+    /* Spinning Border Animation */
+    @keyframes spin-border {
+      0% { border-image-source: linear-gradient(0deg, var(--c1), var(--c2)); }
+      100% { border-image-source: linear-gradient(360deg, var(--c1), var(--c2)); }
+    }
 
-.special-card:hover {
-  transform: translateY(-6px);
-}
+    /* Base card style */
+    .special-card {
+      width: 260px;
+      padding: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform .2s ease;
 
-/* Hover message */
-.special-card-message {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-weight: 800;
-  font-size: 1rem;
-  opacity: 0;
-  transition: opacity .25s ease, transform .25s ease;
-  transform: translateY(10px);
-}
+      border-width: 4px;
+      border-style: solid;
+      border-image-slice: 1;
+      animation: spin-border 4s linear infinite;
+    }
 
-.special-card:hover .special-card-message {
-  opacity: 1;
-  transform: translateY(0);
-}
+    .special-card:hover {
+      transform: translateY(-6px);
+    }
 
-/* Pink Card */
-.pink-card {
-  border: 3px solid #ff4fae;
-}
+    /* Hover message */
+    .special-card-message {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity .25s ease, transform .25s ease;
+      transform: translateY(10px);
+    }
 
-.pink-card .special-card-message {
-  color: #ff4fae;
-}
+    .special-card:hover .special-card-message {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-/* Unknown Card */
-.unknown-card {
-  border: 3px solid #4f6bff;
-}
+    /* Pink Card */
+    .pink-card {
+      --c1: #ff4fae;
+      --c2: #ff9bd6;
+    }
 
-.unknown-card .special-card-message {
-  color: #4f6bff;
-}
+    .pink-card .special-card-message {
+      color: #ff4fae;
+    }
 
-/* Card Images */
-.special-card img {
-  width: 100%;
-  height: auto;
-  display: block;
-}   
+    /* Unknown Card */
+    .unknown-card {
+      --c1: #4f6bff;
+      --c2: #0a0f2b;
+    }
+
+    .unknown-card .special-card-message {
+      color: #4f6bff;
+    }
+
+    /* Card Images */
+    .special-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
   </style>
 </head>
 <body>
@@ -153,6 +164,7 @@
     <div class="header-title">Ij's Texture Packs</div>
   </div>
 
+  <!-- Background Slideshow -->
   <div class="slideshow">
     <div class="slide active" style="background-image:url('https://iili.io/CGY6ILl.png');"></div>
     <div class="slide" style="background-image:url('https://iili.io/CGY6zX4.png');"></div>
@@ -163,25 +175,25 @@
     <div class="slide" style="background-image:url('https://iili.io/CGY6729.png');"></div>
   </div>
 
-   <div class="special-cards">
+  <!-- Special Cards -->
+  <div class="special-cards">
 
-  <!-- Pink Blossom Card -->
-  <div class="special-card pink-card">
-    <div class="special-card-message">Bloxd Blossom Is Not Ready Yet!</div>
-    <img src="https://iili.io/CM88s3X.png" alt="Bloxd Blossom">
+    <!-- Pink Blossom Card -->
+    <div class="special-card pink-card">
+      <div class="special-card-message">Bloxd Blossom Is Not Ready Yet!</div>
+      <img src="https://iili.io/CM88s3X.png" alt="Bloxd Blossom">
+    </div>
+
+    <!-- Unknown Card -->
+    <div class="special-card unknown-card">
+      <div class="special-card-message">?...</div>
+      <img src="https://iili.io/CM8Sfuj.png" alt="Unknown Pack">
+    </div>
+
   </div>
 
-  <!-- Unknown Card -->
-  <div class="special-card unknown-card">
-    <div class="special-card-message">?...</div>
-    <img src="https://iili.io/CM8Sfuj.png" alt="Unknown Pack">
-  </div>
-
-</div>
-
-  
   <script>
-    const intervalMs = 30000; // 30 seconds
+    const intervalMs = 30000;
 
     const slides = document.querySelectorAll('.slide');
     let current = 0;
