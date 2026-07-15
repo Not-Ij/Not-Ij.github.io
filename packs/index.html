@@ -72,7 +72,7 @@
 
     /* Special Cards Container */
     .special-cards {
-      margin-top: 260px; /* LOWERED A LOT */
+      margin-top: 350px; /* LOWERED */
       width: 90%;
       max-width: 900px;
       margin-left: auto;
@@ -83,29 +83,40 @@
       justify-content: center;
     }
 
-    /* Spinning Border Animation */
-    @keyframes spin-border {
-      0% { border-image-source: linear-gradient(0deg, var(--c1), var(--c2)); }
-      100% { border-image-source: linear-gradient(360deg, var(--c1), var(--c2)); }
-    }
-
-    /* Base card style */
+    /* REAL BLOXDMAN BORDER ANIMATION */
     .special-card {
       width: 260px;
-      border-radius: 20px; /* ROUNDED BORDER */
-      overflow: hidden;
+      border-radius: 22px;
       position: relative;
+      overflow: hidden;
       cursor: pointer;
       transition: transform .2s ease;
-
-      border-width: 4px;
-      border-style: solid;
-      border-image-slice: 1;
-      animation: spin-border 4s linear infinite;
     }
 
     .special-card:hover {
       transform: translateY(-6px);
+    }
+
+    /* Animated border layer */
+    .special-card::before {
+      content: "";
+      position: absolute;
+      inset: -3px;
+      border-radius: inherit;
+      padding: 3px;
+      background: conic-gradient(var(--c1), var(--c2), var(--c1));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      animation: spin 3s linear infinite;
+      z-index: 2;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     /* Hover message */
@@ -120,6 +131,7 @@
       opacity: 0;
       transition: opacity .25s ease, transform .25s ease;
       transform: translateY(10px);
+      z-index: 5;
     }
 
     .special-card:hover .special-card-message {
@@ -152,7 +164,9 @@
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 20px; /* MATCH BORDER ROUNDING */
+      border-radius: 22px;
+      position: relative;
+      z-index: 3;
     }
 
   </style>
